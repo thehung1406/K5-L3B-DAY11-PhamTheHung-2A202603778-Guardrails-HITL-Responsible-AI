@@ -1,0 +1,13 @@
+[
+  {
+    "user_id": "student",
+    "request_id": "a72dc18fceeb429bafefbfd7be888169",
+    "input": "What types of savings accounts does VinBank offer?",
+    "timestamp": "2026-11-20T11:35:34.065368+00:00",
+    "output": "Request failed (InternalServerError).",
+    "blocked": false,
+    "layer": "error",
+    "latency_ms": 25781.000000075437,
+    "completed_at": "2026-11-20T11:35:59.852933+00:00"
+  }
+]

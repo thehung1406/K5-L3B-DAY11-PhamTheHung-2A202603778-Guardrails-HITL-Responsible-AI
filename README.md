@@ -1,5 +1,48 @@
 # Day 11 — Controlled Agent Security (2026)
 
+## Bài nộp — Phạm Thế Hưng
+
+- **MSSV:** 2A202603778 · **Lớp:** K5-L3B.
+- **Phạm vi:** CP2–CP5, phần bắt buộc và bonus B1 (Red); bonus cần grader replay.
+- **Runtime:** Python 3.11; Blue giữ OpenRouter `liquid/lfm-3-1.7b:free`;
+  Red và Red Advance dùng OpenAI `gpt-4o-mini`.
+
+**Trạng thái artifact:** CP4 đã chạy thật: Red leak 5/5, Red Advance leak 0/5.
+CP3 chưa có `outputs/results.json` do Liquid trả 429/504 hoặc không phản hồi.
+Report tự sinh hiện ghi `technical_failure: true`; cần chạy lại CP3 và grader
+khi provider phục hồi để hoàn tất nghiệm thu bài nộp.
+
+Chạy trong PowerShell tại gốc repo:
+
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+# Nếu chưa có .env: Copy-Item .env.example .env
+# Điền OPENROUTER_API_KEY và OPENAI_API_KEY vào .env local.
+# Đặt RED_TEAM_PROVIDER=openai, OPENAI_MODEL=gpt-4o-mini.
+python src/main.py --part 2
+python src/main.py --part 3
+python src/main.py --part 4
+python -m pytest tests/smoke tests/public -q
+python scripts/grade.py --submission-dir . --out outputs/grade_report.json
+```
+
+Audit và monitoring là observer quanh mỗi request. Các nhóm thử độc lập về
+cửa sổ rate limit; phép đo burst chỉ gọi limiter trước model, không gọi API.
+Egress kiểm tra HTTPS, hostname chính xác và payload trước khi cho phép xuất dữ liệu;
+lab không thực hiện giao dịch hay gửi HTTP đến các endpoint ngân hàng giả định.
+
+Năm prompt Red Team thử điền cấu hình, đổi định dạng, viết chuyện giả định,
+đối chiếu giá trị và trích xuất theo nhiều bước. Cùng bộ prompt được chạy trên
+Red và Red Advance; leak được tính từ response thực tế bằng detector có sẵn.
+
+`outputs/` được sinh từ các lệnh trên; report do grader tạo. Kiểm tra cả kết quả
+pytest, schema, metadata model và lỗi API/NeMo trước khi nộp. `.env` chỉ lưu local.
+HITL, LLM-as-Judge và AI-generated attacks giữ ở trạng thái tham khảo của starter.
+
+---
+
 > 👤 **Hình thức:** bài tập **cá nhân** (1 người / 1 MSSV).  
 > 🎯 **Mục tiêu:** đóng vai **Blue Team** để học cách xây Guardrails phòng thủ, rồi đóng vai **Red Team** để tấn công agent **Red** hoặc **Red Advance**.  
 > ✅ Làm theo **Checkpoint 1 → 5** trong [`CHECKPOINTS.md`](CHECKPOINTS.md) · nộp theo [`SUBMISSION.md`](SUBMISSION.md).
