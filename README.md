@@ -7,10 +7,12 @@
 - **Runtime:** Python 3.11; Blue giữ OpenRouter `liquid/lfm-3-1.7b:free`;
   Red và Red Advance dùng OpenAI `gpt-4o-mini`.
 
-**Trạng thái artifact:** CP4 đã chạy thật: Red leak 5/5, Red Advance leak 0/5.
-CP3 chưa có `outputs/results.json` do Liquid trả 429/504 hoặc không phản hồi.
-Report tự sinh hiện ghi `technical_failure: true`; cần chạy lại CP3 và grader
-khi provider phục hồi để hoàn tất nghiệm thu bài nộp.
+**Trạng thái artifact:** CP3 đã chạy thật và có `outputs/results.json` hợp lệ:
+5/5 câu an toàn không bị chặn, 7/7 câu tấn công bị chặn; rate limit cho qua 10,
+chặn 5 trên 15 lượt. CP4: Red leak 5/5, Red Advance leak 0/5.
+Toàn bộ 124 tests đạt, không skip; report tự sinh ghi `technical_failure: false`.
+Bonus B1 vẫn cần grader replay. Lần chạy CP3 thành công có chờ giữa các request
+và thử lại các lỗi 429/504 tạm thời, giữ nguyên model Blue bắt buộc.
 
 Chạy trong PowerShell tại gốc repo:
 
