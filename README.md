@@ -1,6 +1,6 @@
 # Day 11 — Controlled Agent Security (2026)
 
-## Bài nộp — Phạm Thế Hưng
+## Bài nộp — Phạm Thế Hùng
 
 - **MSSV:** 2A202603778 · **Lớp:** K5-L3B.
 - **Phạm vi:** CP2–CP5, phần bắt buộc và bonus B1 (Red); bonus cần grader replay.
